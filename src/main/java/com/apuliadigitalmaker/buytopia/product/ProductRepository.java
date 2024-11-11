@@ -17,8 +17,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     //findAllDeletedIsNull
 
     @Query("SELECT e FROM Product e WHERE e.id = :id AND e.deletedAt IS NULL")
-    Optional<Product> findByIdNotDeleted(@Param("id") Long id);
-    //findByIdDeletedIsNull(Long id)
+    Optional<Product> findByIdNotDeleted(@Param("id") Integer id);
+    //findByIdDeletedIsNull(Integer id)
 
     List<Product> findByNameStartsWithIgnoreCaseAndDeletedAtIsNull(String name);
 }

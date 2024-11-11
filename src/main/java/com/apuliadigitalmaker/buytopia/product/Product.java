@@ -14,6 +14,8 @@ import java.time.Instant;
 @Entity
 @Table(name = "products", schema = "buytopia")
 public class Product {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", nullable = false)
@@ -75,6 +77,10 @@ public class Product {
     @PrePersist
     public void prePersist() {
         createdAt = Instant.now();
+    }
+
+    public void softDelete() {
+        this.deletedAt = Instant.now();
     }
 
     public Integer getId() {
