@@ -1,0 +1,102 @@
+package com.apuliadigitalmaker.buytopia.user;
+
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.Id;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@Service
+public class UserService {
+    private static final String notFoundMessage = "User not found";
+
+    @Autowired
+    private UserRepository userRepository;
+
+    // Ottieni tutti
+    public List<User> getAllUsers() {
+
+        return userRepository.findAllNotDeleted();
+    }
+
+    // Ottieni da Id
+    public User getUserById(int id) {
+
+        return userRepository
+                .findByIdNotDeleted(id)
+                .orElseThrow(() -> new EntityNotFoundException(notFoundMessage));
+    }
+
+    
+    // Crea Utente
+    public User createUser(User user) {
+
+        return userRepository.save(user);
+    }
+
+    
+    // Aggiorna Utente
+    @Transactional
+    public User updateUser(Integer id, Map<String, Object> update) {
+        
+        // Trova Utente da Id
+        Optional<User> optionalUser = userRepository.findByIdNotDeleted(id);
+        if (optionalUser.isEmpty()) {
+            throw new EntityNotFoundException(notFoundMessage);
+        }
+
+        User user = optionalUser.get();
+
+        // Esegui un foreach e trova corrispondenze con la Map Update
+        // Nel caso in cui dovesse trovarle aggiorna il valore
+        update.forEach((key, value) -> {
+            switch (key) {
+                case "first_name":
+                    user.setFirstName((String) value);
+                    break;
+                case "last_name":
+                    user.setLastName((String) value);
+                    break;
+                case "email":
+                    user.setEmail((String) value);
+                    break;
+                case "password":
+                    user.setPassword((String) value);
+                    break;
+                case "phone_number":
+                    user.setPhone((String) value);
+                    break;
+                case "address":
+                    user.setBillingAddress((String) value);
+                    break;
+            }
+        });
+            return userRepository.save(user);
+        }
+
+     // Elimina Utente
+    @Transactional
+    public void deleteUser(int id) {
+
+        // Cerco l'utente da eliminare
+        User user = userRepository
+                .findByIdNotDeleted(id)
+                .orElseThrow(() -> new EntityNotFoundException(notFoundMessage));
+
+        // Aggiungo una data a deletedAt
+        user.softDelete();
+
+        // Salvo la modifica
+        userRepository.save(user);
+
+
+    }
+        
+        
+
+        
+}
