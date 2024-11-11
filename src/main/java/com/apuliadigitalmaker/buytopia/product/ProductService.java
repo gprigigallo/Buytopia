@@ -47,7 +47,7 @@ public class ProductService {
     }
 
     @Transactional
-    public Product updateDepartment(int id, Map<String, Object> update) {
+    public Product updateProduct(int id, Map<String, Object> update) {
         Optional<Product> optionalProduct = productRepository.findByIdNotDeleted(id);
 
         if (optionalProduct.isEmpty()) {
