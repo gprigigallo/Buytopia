@@ -118,7 +118,6 @@ public class User {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         this.password = passwordEncoder.encode(password);
 
-        this.password = password;
     }
 
     public String getEmail() {
