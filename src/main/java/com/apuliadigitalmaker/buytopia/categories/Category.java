@@ -50,6 +50,7 @@ public class Category {
 
     public void softDelete() {this.deletedAt = Instant.now();}
 
+    @JsonIgnore
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new LinkedHashSet<>();
 

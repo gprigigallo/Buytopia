@@ -11,7 +11,7 @@ public class OrderDto {
     private Integer quantity;
     private BigDecimal commission;
     private BigDecimal shippingPrice;
-    private String billingAddress;
+    private String shippingAddress;
     private BigDecimal totalPrice;
     private Instant createdAt;
     private Instant updatedAt;
@@ -66,12 +66,12 @@ public class OrderDto {
         this.shippingPrice = shippingPrice;
     }
 
-    public String getBillingAddress() {
-        return billingAddress;
+    public String getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setBillingAddress(String billingAddress) {
-        this.billingAddress = billingAddress;
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
     public BigDecimal getTotalPrice() {

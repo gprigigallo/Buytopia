@@ -64,7 +64,7 @@ public abstract class MapperRepository {
         order.setQuantity(dto.getQuantity());
         order.setCommission(dto.getCommission());
         order.setShippingPrice(dto.getShippingPrice());
-        order.setBillingAddress(dto.getBillingAddress());
+        order.setShippingAddress(dto.getShippingAddress());
         order.setTotalPrice(dto.getTotalPrice());
         return order;
     }
@@ -77,7 +77,7 @@ public abstract class MapperRepository {
         dto.setQuantity(order.getQuantity());
         dto.setCommission(order.getCommission());
         dto.setShippingPrice(order.getShippingPrice());
-        dto.setBillingAddress(order.getBillingAddress());
+        dto.setShippingAddress(order.getShippingAddress());
         dto.setTotalPrice(order.getTotalPrice());
         dto.setCreatedAt(order.getCreatedAt());
         dto.setUpdatedAt(order.getUpdatedAt());

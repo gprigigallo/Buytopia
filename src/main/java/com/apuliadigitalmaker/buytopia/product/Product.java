@@ -2,6 +2,7 @@ package com.apuliadigitalmaker.buytopia.product;
 
 import com.apuliadigitalmaker.buytopia.categories.Category;
 import com.apuliadigitalmaker.buytopia.categories.Category;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -31,6 +32,7 @@ public class Product {
     @Column(name = "description")
     private String description;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "category_id")

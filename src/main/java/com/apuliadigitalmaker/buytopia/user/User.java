@@ -1,6 +1,7 @@
 package com.apuliadigitalmaker.buytopia.user;
 
 import com.apuliadigitalmaker.buytopia.order.Order;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -61,6 +62,7 @@ public class User {
     @Column(name = "created_at")
     private Instant createdAt;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<Order> orders = new LinkedHashSet<>();
 

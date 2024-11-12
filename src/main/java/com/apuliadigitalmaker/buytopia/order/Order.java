@@ -2,6 +2,7 @@ package com.apuliadigitalmaker.buytopia.order;
 
 import com.apuliadigitalmaker.buytopia.orderproduct.OrderProduct;
 import com.apuliadigitalmaker.buytopia.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -41,8 +42,8 @@ public class Order {
 
     @Size(max = 255)
     @NotNull
-    @Column(name = "billing_address", nullable = false)
-    private String billingAddress;
+    @Column(name = "shipping_address", nullable = false)
+    private String shippingAddress;
 
     @Column(name = "total_price", precision = 10, scale = 2)
     private BigDecimal totalPrice;
@@ -128,12 +129,12 @@ public class Order {
         this.shippingPrice = shippingPrice;
     }
 
-    public String getBillingAddress() {
-        return billingAddress;
+    public String getShippingAddress() {
+        return shippingAddress;
     }
 
-    public void setBillingAddress(String billingAddress) {
-        this.billingAddress = billingAddress;
+    public void setShippingAddress(String shippingAddress) {
+        this.shippingAddress = shippingAddress;
     }
 
     public BigDecimal getTotalPrice() {return totalPrice;}
