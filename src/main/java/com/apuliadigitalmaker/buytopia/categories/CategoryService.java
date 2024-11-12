@@ -23,7 +23,7 @@ public class CategoryService {
         return categoryRepository.findNotDeleted();
     }
 
-    public Category findDepartmentById(Long id) {
+    public Category findCategoryById(Long id) {
         return categoryRepository
                 .findByIdNotDeleted(id)
                 .orElseThrow(() -> new EntityNotFoundException(notFoundMessage));
@@ -69,6 +69,6 @@ public class CategoryService {
     }
 
     public List<Category> searchCategory(String query) {
-        return categoryRepository.findByNameStartsWithIgnoreCaseAndDeletedIsNull(query);
+        return categoryRepository.findByNameStartsWithIgnoreCaseAndDeletedAtIsNull(query);
     }
 }

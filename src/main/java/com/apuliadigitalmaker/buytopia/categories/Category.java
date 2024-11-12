@@ -16,7 +16,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "category_id", nullable = false)
     private Integer id;
 
     @Column(name = "name", nullable = false)
@@ -25,23 +25,9 @@ public class Category {
     @Column(name = "description", nullable = false)
     private String description;
 
-    @JsonIgnore
-    @ColumnDefault("current_timestamp()")
-    @Column(name = "created", updatable = false)
-    private Instant created;
-
-    @JsonIgnore
-    @ColumnDefault("current_timestamp()")
-    @Column(name = "updated")
-    private Instant updated;
-
-    @JsonIgnore
-    @Column(name = "deleted")
-    private Instant deleted;
-
 
     @ColumnDefault("current_timestamp()")
-    @Column(name = "created_at")
+    @Column(name = "created_at",updatable = false)
     private Instant createdAt;
 
     // Modifica la data di creazione
@@ -66,6 +52,18 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     private Set<Product> products = new LinkedHashSet<>();
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 
     public Set<Product> getProducts() {
         return products;
@@ -99,9 +97,12 @@ public class Category {
         this.createdAt = createdAt;
     }
 
-    public void setName(String value) {
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setDescription(String value) {
+    public void setDescription(String description) {
+        this.description = description;
     }
+
 }

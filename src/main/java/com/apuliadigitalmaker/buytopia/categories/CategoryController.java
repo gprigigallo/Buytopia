@@ -1,6 +1,7 @@
 package com.apuliadigitalmaker.buytopia.categories;
 
 
+import com.apuliadigitalmaker.buytopia.common.ResponseBuilder;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,6 +68,9 @@ public class CategoryController {
     @PostMapping("/add")
     public ResponseEntity<?> addCategory(@RequestBody Category category) {
         try {
+            if (category.getName() == null || category.getName().isEmpty()) {
+                throw new BadRequestException("Category name cannot be empty");
+            }
             return ResponseBuilder.success(categoryService.saveCategory(category));
         }
         catch (Exception e) {

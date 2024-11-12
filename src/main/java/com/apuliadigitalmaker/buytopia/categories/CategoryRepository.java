@@ -13,14 +13,14 @@ import java.util.Optional;
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
 
-    @Query("SELECT e FROM Category e WHERE e.deleted IS NULL")
+    @Query("SELECT e FROM Category e WHERE e.deletedAt IS NULL")
     List<Category> findNotDeleted();
     //findAllDeletedIsNull
 
-    @Query("SELECT e FROM Category e WHERE e.id = :id AND e.deleted IS NULL")
+    @Query("SELECT e FROM Category e WHERE e.id = :id AND e.deletedAt IS NULL")
     Optional<Category> findByIdNotDeleted(@Param("id") Long id);
     //findByIdDeletedIsNull(Long id)
 
-    List<Category> findByNameStartsWithIgnoreCaseAndDeletedIsNull(String name);
+    List<Category> findByNameStartsWithIgnoreCaseAndDeletedAtIsNull(String name);
 }
 
