@@ -56,10 +56,7 @@ public abstract class MapperRepository {
 
     public Order toEntity(OrderDto dto) {
         Order order = new Order();
-        Optional<User> tuser = userRepository.findByIdNotDeleted(dto.getUserId());
-        User user = tuser.orElseGet(User::new);
-        order.setId(dto.getId());
-        order.setUser(user);
+
         order.setOrderDate(dto.getOrderDate());
         order.setQuantity(dto.getQuantity());
         order.setCommission(dto.getCommission());
@@ -71,17 +68,13 @@ public abstract class MapperRepository {
 
     public OrderDto toDTO(Order order) {
         OrderDto dto = new OrderDto();
-        dto.setId(order.getId());
-        dto.setUserId(order.getUser().getId());
+
         dto.setOrderDate(order.getOrderDate());
         dto.setQuantity(order.getQuantity());
         dto.setCommission(order.getCommission());
         dto.setShippingPrice(order.getShippingPrice());
         dto.setBillingAddress(order.getBillingAddress());
         dto.setTotalPrice(order.getTotalPrice());
-        dto.setCreatedAt(order.getCreatedAt());
-        dto.setUpdatedAt(order.getUpdatedAt());
-        dto.setDeletedAt(order.getDeletedAt());
 
         // Modifica il codice per usare il metodo toDTO all'interno della stessa classe
         dto.setOrderProducts(order.getOrderProducts().stream()

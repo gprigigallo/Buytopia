@@ -5,34 +5,17 @@ import java.time.Instant;
 import java.util.List;
 
 public class OrderDto {
-    private Integer id;
-    private Integer userId;
+
     private Instant orderDate;
     private Integer quantity;
     private BigDecimal commission;
     private BigDecimal shippingPrice;
     private String billingAddress;
     private BigDecimal totalPrice;
-    private Instant createdAt;
-    private Instant updatedAt;
-    private Instant deletedAt;
+
     private List<OrderProductDto> orderProducts;
 
-    public Integer getId() {
-        return id;
-    }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public Instant getOrderDate() {
         return orderDate;
@@ -80,30 +63,6 @@ public class OrderDto {
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public Instant getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setDeletedAt(Instant deletedAt) {
-        this.deletedAt = deletedAt;
     }
 
     public List<OrderProductDto> getOrderProducts() {
