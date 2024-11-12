@@ -1,7 +1,7 @@
 package com.apuliadigitalmaker.buytopia.categories;
 
 
-import com.apuliadigitalmaker.buytopia.products.Product;
+import com.apuliadigitalmaker.buytopia.product.Product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.ColumnDefault;

@@ -1,6 +1,7 @@
 package com.apuliadigitalmaker.buytopia.product;
 
-import com.apuliadigitalmaker.buytopia.category.Category;
+import com.apuliadigitalmaker.buytopia.categories.Category;
+import com.apuliadigitalmaker.buytopia.categories.Category;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
