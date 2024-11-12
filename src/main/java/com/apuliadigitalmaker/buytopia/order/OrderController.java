@@ -19,15 +19,15 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/departments")
-@Tag(name = "Departments", description = "List of Departments endpoints")
+@RequestMapping("/orders")
+@Tag(name = "Orders", description = "List of Orders endpoints")
 public class OrderController {
 
 
     @Autowired
     private OrderService orderService;
 
-    @Operation(summary = "Get the list of all departments")
+    @Operation(summary = "Get the list of all orders")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Success", content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Order.class))) }),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
@@ -38,7 +38,7 @@ public class OrderController {
             List<Order> order = orderService.getAllOrders();
 
             if (order.isEmpty()) {
-                return ResponseBuilder.notFound("Departments not found");
+                return ResponseBuilder.notFound("Order not found");
             } else {
                 return ResponseBuilder.success(order);
             }
