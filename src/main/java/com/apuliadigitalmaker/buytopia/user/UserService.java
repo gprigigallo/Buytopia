@@ -122,7 +122,7 @@ public class UserService {
 
     // Cerco l'utente da query
     public List<User> searchUser(String search) {
-        return userRepository.findByFirstNameStartsWithIgnoreCaseAndDeletedAtIsNull(search);
+        return userRepository.findByUsernameStartsWithIgnoreCaseAndDeletedAtIsNull(search);
     }
         
         

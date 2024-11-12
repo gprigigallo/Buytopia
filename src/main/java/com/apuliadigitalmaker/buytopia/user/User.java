@@ -189,6 +189,14 @@ public class User {
 
     public void setDeletedAt(Instant deletedAt) {this.deletedAt = deletedAt;}
 
+    public boolean enabled() {
+        if (deletedAt != null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 
 
 }

@@ -16,7 +16,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("SELECT e FROM User e WHERE e.id = :id AND e.deletedAt IS NULL")
     Optional<User> findByIdNotDeleted(Integer id);
 
-    List<User> findByFirstNameStartsWithIgnoreCaseAndDeletedAtIsNull(String name);
+    List<User> findByUsernameStartsWithIgnoreCaseAndDeletedAtIsNull(String name);
+
 
 
 }
