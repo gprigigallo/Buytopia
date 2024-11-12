@@ -11,7 +11,8 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    private final String secretKey = "keb5nOfeC9PlMXJIez0MghFB5zdCdskJzqNwcBukOejNiUImPOZCuPz9JJO8HhePHI6nNUDcxbhxBFLxWwpTgUR0D8a5nNVHd1TOBDXvlQX4gbzMWXz4VUagkoVYRoON3QojvlJB8wTRQsHVlJg24LWSlb2nntYROwcYHlroEDEPYvLF8XxTb8TkbaAvjnqzkmdI0iXcd1hFxRwUGGmTYDZmi8MbF7KIaH9KCYWSzmj6OwHw9bVjqSg1gxAfApOk";
+    // ApiKey 256 bit
+    private final String secretKey = "MXl0RBQn73NC4nNiDo6rMR4DgMNT7fx33EJVyNR0Fw0YiMp3WJVxpJGli4xVMsJfcDq4eylyxiQynnaNeYc1kt9SdkyMVHAafNBR6cH8GbsNhuoztvmZ58bwa3FZT3Z7L8huoViCbCV1jKkdQnbVpkkGLvrW5LovdZgv5EC2Ktqc4wKc0QLFhHT4u7WgxyzfjIk15aNUMy57fCXYpsjk9LwTERP7hzUFcBMVKfXk6VtXdEa7fxOKie5QvfIGtojU";
     private final SecretKey key = Jwts.SIG.HS256.key().build();
 
     public String generateToken(String username) {
