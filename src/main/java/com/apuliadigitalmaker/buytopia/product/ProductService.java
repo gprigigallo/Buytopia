@@ -51,9 +51,6 @@ public class ProductService {
     public Product updateProduct(int id, Map<String, Object> update) {
         Optional<Product> optionalProduct = productRepository.findByIdNotDeleted(id);
 
-        if (optionalProduct.isEmpty()) {
-            throw new EntityNotFoundException(notFoundMessage);
-        }
 
         Product product = optionalProduct.get();
 
@@ -67,7 +64,17 @@ public class ProductService {
                     product.setDescription((String) value);
                     break;
                 case "price":
-                    product.setPrice((BigDecimal) value);
+                    if (value instanceof BigDecimal) {
+                        product.setPrice((BigDecimal) value);
+                    } else if (value instanceof Integer) {
+                        product.setPrice(BigDecimal.valueOf((Integer) value));
+                    } else if (value instanceof Long) {
+                        product.setPrice(BigDecimal.valueOf((Long) value));
+                    } else if (value instanceof Double) {
+                        product.setPrice(BigDecimal.valueOf((Double) value));
+                    } else {
+                        throw new IllegalArgumentException("Unsupported type for price: " + value.getClass().getName());
+                    }
                     break;
                 case "quantity":
                     product.setAvailableQuantity((Integer) value);
