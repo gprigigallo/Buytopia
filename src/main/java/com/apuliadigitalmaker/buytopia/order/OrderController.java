@@ -33,14 +33,14 @@ public class OrderController {
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
     @GetMapping("/all")
-    public ResponseEntity<?> getAllDepartments() {
+    public ResponseEntity<?> getAllOrder() {
         try {
-            List<Order> departments = orderService.getAllOrders();
+            List<Order> order = orderService.getAllOrders();
 
-            if (departments.isEmpty()) {
+            if (order.isEmpty()) {
                 return ResponseBuilder.notFound("Departments not found");
             } else {
-                return ResponseBuilder.success(departments);
+                return ResponseBuilder.success(order);
             }
 
         }
@@ -66,7 +66,7 @@ public class OrderController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addDepartment(@RequestBody Order order) {
+    public ResponseEntity<?> addOrder(@RequestBody Order order) {
         try {
             return ResponseBuilder.success(orderService.addOrder(order));
         }
@@ -96,7 +96,7 @@ public class OrderController {
 
         try {
             orderService.deleteOrder(id);
-            return ResponseBuilder.deleted("Department deleted successfully");
+            return ResponseBuilder.deleted("Order deleted successfully");
         }
         catch (EntityNotFoundException e) {
             return ResponseBuilder.notFound(e.getMessage());
