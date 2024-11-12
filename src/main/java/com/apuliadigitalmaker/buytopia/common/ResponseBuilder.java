@@ -116,6 +116,20 @@ public final class ResponseBuilder {
         return new ResponseEntity<>(response, headers, unauthorizedCode);
     }
 
+    public static ResponseEntity<?> authSuccess(String jwt) {
+        HttpHeaders headers = new HttpHeaders();
+        Map<String, Object> response = new HashMap<>();
+
+        JwtUtil jwtUtil = new JwtUtil();
+
+        response.put("success", true);
+        response.put("token", jwt);
+        response.put("username", jwtUtil.extractUsername(jwt));
+
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+        return new ResponseEntity<>(response, headers, successCode);
+    }
 
 
 
