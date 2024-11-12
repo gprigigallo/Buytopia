@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 public abstract class MapperRepository {
 
+    // Trasforma i DTO in Entità
+
     UserRepository userRepository;
 
     public ProductDto toDTO(Product product){
