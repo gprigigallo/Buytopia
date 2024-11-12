@@ -29,6 +29,7 @@ public class ProductService {
     }
 
     public Product addProduct(Product product) {
+
         return productRepository.save(product);
     }
 
@@ -59,6 +60,7 @@ public class ProductService {
         update.forEach((key, value) -> {
             switch (key) {
                 case "name":
+
                     product.setName((String) value);
                     break;
                 case "description":
@@ -82,8 +84,8 @@ public class ProductService {
                 case "avaiable":
                     product.setAvailable((Boolean) value);
                     break;
-                /* case "category":
-                    product.setCategory((Category) value);*/
+                case "category":
+                    product.setCategory((Category) value);
 
             }
         });
