@@ -1,4 +1,4 @@
-package com.apuliadigitalmaker.buytopia;
+package com.apuliadigitalmaker.buytopia.order;
 
 import com.apuliadigitalmaker.buytopia.product.Product;
 import jakarta.persistence.*;

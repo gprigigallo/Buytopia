@@ -1,6 +1,6 @@
 package com.apuliadigitalmaker.buytopia.product;
 
-import com.apuliadigitalmaker.buytopia.Category;
+import com.apuliadigitalmaker.buytopia.category.Category;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.apuliadigitalmaker.buytopia;
+package com.apuliadigitalmaker.buytopia.category;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
