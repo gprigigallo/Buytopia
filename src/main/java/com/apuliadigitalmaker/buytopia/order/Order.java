@@ -1,5 +1,6 @@
 package com.apuliadigitalmaker.buytopia.order;
 
+import com.apuliadigitalmaker.buytopia.orderproduct.OrderProduct;
 import com.apuliadigitalmaker.buytopia.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -135,13 +136,13 @@ public class Order {
         this.billingAddress = billingAddress;
     }
 
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
+    public BigDecimal getTotalPrice() {return totalPrice;}
 
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
+
+
 
     public Instant getCreatedAt() {
         return createdAt;
@@ -166,5 +167,7 @@ public class Order {
     public void setDeletedAt(Instant deletedAt) {
         this.deletedAt = deletedAt;
     }
+
+
 
 }

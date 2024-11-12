@@ -1,6 +1,8 @@
 package com.apuliadigitalmaker.buytopia.order;
 
-import com.apuliadigitalmaker.buytopia.category.Category;
+import com.apuliadigitalmaker.buytopia.orderproduct.OrderProduct;
+import com.apuliadigitalmaker.buytopia.orderproduct.OrderProductRepository;
+import com.apuliadigitalmaker.buytopia.orderproduct.OrderProductService;
 import com.apuliadigitalmaker.buytopia.product.Product;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -20,6 +22,9 @@ public class OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+    private OrderProductRepository orderProductRepository;
+    @Autowired
+    private OrderProductService orderProductService;
 
     public List<Order> getAllOrders() {
         return orderRepository.findNotDeleted();
@@ -30,6 +35,17 @@ public class OrderService {
     }
 
     public Order addOrder(Order order) {
+
+        List<OrderProduct> orderProducts = orderProductRepository.findOrderProductByOrderId(order.getId());
+
+        BigDecimal totalPrice = BigDecimal.ZERO;
+
+        for(var temp : orderProducts){
+             totalPrice = totalPrice.add(temp.getPrice());
+        }
+
+        totalPrice =  totalPrice.add(order.getShippingPrice()).add(order.getCommission());
+        order.setTotalPrice(totalPrice);
 
         return orderRepository.save(order);
     }
@@ -60,6 +76,7 @@ public class OrderService {
 
             }
         });
+
 
 
 

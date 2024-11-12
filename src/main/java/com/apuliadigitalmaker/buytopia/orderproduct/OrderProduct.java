@@ -1,9 +1,12 @@
-package com.apuliadigitalmaker.buytopia.order;
+package com.apuliadigitalmaker.buytopia.orderproduct;
 
+import com.apuliadigitalmaker.buytopia.order.Order;
 import com.apuliadigitalmaker.buytopia.product.Product;
 import jakarta.persistence.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "order_products", schema = "buytopia")
@@ -46,4 +49,7 @@ public class OrderProduct {
         this.product = product;
     }
 
+    public BigDecimal getPrice() {
+        return product.getPrice();
+    }
 }
