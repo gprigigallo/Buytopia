@@ -10,6 +10,8 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders", schema = "buytopia")
@@ -48,6 +50,9 @@ public class Order {
     @Column(name = "created_at")
     private Instant createdAt;
 
+    @OneToMany(mappedBy = "order")
+    private Set<OrderProduct> orderProducts = new LinkedHashSet<>();
+
     @PrePersist
     protected void onCreate() {
         createdAt = Instant.now();
@@ -63,6 +68,16 @@ public class Order {
 
     @Column(name = "deleted_at")
     private Instant deletedAt;
+
+    public void softDelete() {this.deletedAt= Instant.now();}
+
+    public Set<OrderProduct> getOrderProducts() {
+        return orderProducts;
+    }
+
+    public void setOrderProducts(Set<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
+    }
 
     public Integer getId() {
         return id;
