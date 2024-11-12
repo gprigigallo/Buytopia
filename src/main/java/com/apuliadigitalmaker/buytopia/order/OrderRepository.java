@@ -22,5 +22,5 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
         @Query("SELECT o FROM Order o WHERE o.user.id = :id AND o.deletedAt IS NULL ")
         List<Order> findAllWhereUserIdIsEqual(@Param("id") int id);
 
-    List<Order> findByNameContainingIgnoreCase(String query);
+
 }
