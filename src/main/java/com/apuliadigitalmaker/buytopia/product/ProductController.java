@@ -66,6 +66,11 @@ public class ProductController {
     @PostMapping("/add")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
         try {
+
+            if(product.getName().length() < 3)return ResponseBuilder.badRequest("Name too short, the name must be at least 3 characters");
+            if(product.getPrice().doubleValue() <= 0)return ResponseBuilder.badRequest("price must be more than zero");
+            if(product.getDescription().isEmpty() && product.getDescription() != null) return ResponseBuilder.badRequest("if u put a description don't leave it empty!!");
+            if(product.getAvailableQuantity() <= 0 || !product.getAvailable())return ResponseBuilder.badRequest("u can't add something you don't have!");
             return ResponseBuilder.success(productService.addProduct(product));
         }
         catch (Exception e) {
@@ -94,6 +99,22 @@ public class ProductController {
 
         try {
             productService.deleteProduct(id);
+            return ResponseBuilder.deleted("Product deleted successfully");
+        }
+        catch (EntityNotFoundException e) {
+            return ResponseBuilder.notFound(e.getMessage());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBuilder.error();
+        }
+    }
+
+    @DeleteMapping("/hardDelete/{id}")
+    public ResponseEntity<?> hardDeleteProduct(@PathVariable Integer id) {
+
+        try {
+            productService.hardDeleteProduct(id);
             return ResponseBuilder.deleted("Product deleted successfully");
         }
         catch (EntityNotFoundException e) {
