@@ -108,13 +108,13 @@ public class OrderController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchOrder(@RequestParam String query) {
+    public ResponseEntity<?> searchOrder(@RequestParam Integer userId) {
 
-        if (query.length() < 3) {
-            return ResponseBuilder.badRequest("Required at least 3 characters");
+        if (userId <= 0 ) {
+            return ResponseBuilder.badRequest("id must be greater than 0");
         }
 
-        List<Order> searchResults = orderService.searchOrder(query);
+        List<Order> searchResults = orderService.searchOrder(userId);
         if (searchResults.isEmpty()) {
             return ResponseBuilder.notFound("Search has no results");
         }

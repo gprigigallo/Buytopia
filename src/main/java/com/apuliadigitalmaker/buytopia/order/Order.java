@@ -25,6 +25,7 @@ public class Order {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
     private User user;
+    private Integer userId = user.getId();
 
     @ColumnDefault("current_timestamp()")
     @Column(name = "order_date")

@@ -60,8 +60,8 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public List<Order> searchOrder(String query) {
-        return orderRepository.findByNameStartsWithIgnoreCaseAndDeletedIsNull(query);
+    public List<Order> searchOrder(int id) {
+        return orderRepository.findAllWhereUserIdIsEqual(id);
     }
 
     @Transactional

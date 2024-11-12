@@ -1,4 +1,5 @@
 package com.apuliadigitalmaker.buytopia.order;
+import com.apuliadigitalmaker.buytopia.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,8 +19,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
         @Query("SELECT e FROM Order e WHERE e.id = :id AND e.deletedAt IS NULL")
         Optional<Order> findByIdNotDeleted(@Param("id") int id);
 
-        List<Order> findByNameStartsWithIgnoreCaseAndDeletedIsNull(String name);
-
+        @Query("SELECT o FROM Order o WHERE o.userId = :id AND o.deletedAt IS NULL ")
+        List<Order> findAllWhereUserIdIsEqual(@Param("id") int id);
 
     List<Order> findByNameContainingIgnoreCase(String query);
 }
