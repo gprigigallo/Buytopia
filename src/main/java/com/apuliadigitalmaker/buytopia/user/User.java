@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 import java.time.Instant;
@@ -113,8 +115,8 @@ public class User {
     // Salva le password Hashate in BCrypt
     public void setPassword(String password) {
 
-        //PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        //this.password = passwordEncoder.encode(password);
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
 
         this.password = password;
     }
