@@ -18,6 +18,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     List<User> findByUsernameStartsWithIgnoreCaseAndDeletedAtIsNull(String name);
 
+    Optional<User> findByUsername(String username);
+
 
 
 }
