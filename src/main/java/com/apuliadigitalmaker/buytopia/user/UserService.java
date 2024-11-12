@@ -1,5 +1,6 @@
 package com.apuliadigitalmaker.buytopia.user;
 
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
@@ -13,6 +14,8 @@ import java.util.Optional;
 @Service
 public class UserService {
     private static final String notFoundMessage = "User not found";
+    private static final String usernameAlreadyExistsMessage = "Username already exists";
+    private static final String emailAlreadyExistsMessage = "Email already exists";
 
     @Autowired
     private UserRepository userRepository;
@@ -35,6 +38,14 @@ public class UserService {
     // Crea Utente
     public User createUser(User user) {
 
+        for (User testUser : userRepository.findAll()){
+            if (testUser.getUsername().equals(user.getUsername())){
+                throw new EntityExistsException(usernameAlreadyExistsMessage);
+            }
+            if (testUser.getEmail().equals(user.getEmail())){
+                throw new EntityExistsException(emailAlreadyExistsMessage);
+            }
+        }
         return userRepository.save(user);
     }
 
@@ -55,6 +66,8 @@ public class UserService {
         // Nel caso in cui dovesse trovarle aggiorna il valore
         update.forEach((key, value) -> {
             switch (key) {
+                case "username":
+                    user.setUsername((String) value);
                 case "first_name":
                     user.setFirstName((String) value);
                     break;
@@ -94,6 +107,22 @@ public class UserService {
         userRepository.save(user);
 
 
+    }
+
+    @Transactional
+    public void hardDeleteUser(int id) {
+        // Cerco l'utente da eliminare
+        User user = userRepository
+                .findByIdNotDeleted(id)
+                .orElseThrow(() -> new EntityNotFoundException(notFoundMessage));
+
+        // Elimino l'utente
+        userRepository.delete(user);
+    }
+
+    // Cerco l'utente da query
+    public List<User> searchUser(String search) {
+        return userRepository.findByFirstNameStartsWithIgnoreCaseAndDeletedAtIsNull(search);
     }
         
         
