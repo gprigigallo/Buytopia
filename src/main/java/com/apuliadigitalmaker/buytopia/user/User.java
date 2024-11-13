@@ -27,6 +27,7 @@ public class User {
     @Column(name = "username", nullable = false, length = 55)
     private String username;
 
+    @JsonIgnore
     @Size(max = 255)
     @NotNull
     @Column(name = "password", nullable = false)
@@ -62,7 +63,7 @@ public class User {
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @JsonIgnore
+    //@JsonIgnore
     @OneToMany(mappedBy = "user")
     private Set<Order> orders = new LinkedHashSet<>();
 

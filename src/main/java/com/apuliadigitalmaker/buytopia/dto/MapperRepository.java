@@ -9,7 +9,8 @@ import com.apuliadigitalmaker.buytopia.user.UserRepository;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public abstract class MapperRepository {
+
+public class MapperRepository {
 
     // Trasforma i DTO in Entità
 
@@ -80,6 +81,18 @@ public abstract class MapperRepository {
         dto.setOrderProducts(order.getOrderProducts().stream()
                 .map(this::toDTO) // Usa il metodo toDTO direttamente
                 .collect(Collectors.toList()));
+
+        return dto;
+    }
+
+    public UserDto toDTO(User user) {
+        UserDto dto = new UserDto();
+
+        dto.setUsername(user.getUsername());
+        dto.setEmail(user.getEmail());
+        dto.setOrders(user.getOrders().stream()
+                .map(this::toDTO)
+                .collect(Collectors.toSet()));
 
         return dto;
     }

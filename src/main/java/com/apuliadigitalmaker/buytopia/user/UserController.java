@@ -137,9 +137,20 @@ public class UserController {
     }
 
 
+    @GetMapping("/orders")
+    public ResponseEntity<?> getOrdersByUserId(@RequestParam String email) {
+        try {
+            return ResponseBuilder.success(userService.getOrderByUserEmail(email));
+        } catch (EntityNotFoundException e) {
+            return ResponseBuilder.notFound(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBuilder.error();
+        }
+    }
 
 
-        }    
+}
 
 
 
