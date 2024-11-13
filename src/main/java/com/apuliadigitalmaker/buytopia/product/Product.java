@@ -2,6 +2,7 @@ package com.apuliadigitalmaker.buytopia.product;
 
 import com.apuliadigitalmaker.buytopia.categories.Category;
 import com.apuliadigitalmaker.buytopia.categories.Category;
+import com.apuliadigitalmaker.buytopia.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -37,6 +38,20 @@ public class Product {
     @OnDelete(action = OnDeleteAction.SET_NULL)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @NotNull
     @Column(name = "price", nullable = false, precision = 10, scale = 2)

@@ -1,6 +1,8 @@
 package com.apuliadigitalmaker.buytopia.product;
 
 import com.apuliadigitalmaker.buytopia.categories.Category;
+import com.apuliadigitalmaker.buytopia.user.User;
+import com.apuliadigitalmaker.buytopia.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,9 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public List<Product> getAllProducts() {
         return productRepository.findNotDeleted();
     }
@@ -30,6 +35,10 @@ public class ProductService {
 
     public Product addProduct(Product product) {
 
+        // Setto vendor = 1
+        User user = userRepository.findById(product.getUser().getId()).orElseThrow(EntityNotFoundException::new);
+        user.setVendor(true);
+        userRepository.save(user);
         return productRepository.save(product);
     }
 
