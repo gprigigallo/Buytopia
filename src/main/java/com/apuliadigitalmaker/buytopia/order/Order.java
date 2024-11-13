@@ -2,6 +2,7 @@ package com.apuliadigitalmaker.buytopia.order;
 
 import com.apuliadigitalmaker.buytopia.orderproduct.OrderProduct;
 import com.apuliadigitalmaker.buytopia.user.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -25,6 +26,7 @@ public class Order {
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ColumnDefault("current_timestamp()")

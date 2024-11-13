@@ -122,4 +122,20 @@ public class OrderController {
         return ResponseBuilder.searchResults(searchResults, searchResults.size());
     }
 
+
+    @GetMapping("/byuserid/{id}")
+    public ResponseEntity<?> getOrderByUserid(@PathVariable Integer id) {
+        try {
+            return ResponseBuilder.success(orderService.getOrderByUserId(id));
+        }
+        catch (EntityNotFoundException e) {
+            return ResponseBuilder.notFound(e.getMessage());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return ResponseBuilder.error();
+        }
+
+    }
+
 }

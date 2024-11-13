@@ -79,11 +79,12 @@ public class OrderService {
 
 
 
-
         return orderRepository.save(Order);
     }
 
-
+    public List<Order> getOrderByUserId(int id) {
+        return orderRepository.findAllWhereUserIdIsEqual(id);
+    }
 
 
 
