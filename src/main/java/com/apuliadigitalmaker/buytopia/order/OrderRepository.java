@@ -14,13 +14,14 @@ public interface OrderRepository extends JpaRepository<Order, Integer>{
 
 
         @Query("SELECT e FROM Order e WHERE e.deletedAt IS NULL")
-        List<Order> findNotDeleted();
+        List<Order> findAllNotDeleted();
 
         @Query("SELECT e FROM Order e WHERE e.id = :id AND e.deletedAt IS NULL")
         Optional<Order> findByIdNotDeleted(@Param("id") int id);
 
         @Query("SELECT o FROM Order o WHERE o.user.id = :id AND o.deletedAt IS NULL ")
         List<Order> findAllWhereUserIdIsEqual(@Param("id") int id);
+
 
 
 }

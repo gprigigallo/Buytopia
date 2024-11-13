@@ -107,19 +107,19 @@ public class OrderController {
         }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<?> searchOrder(@RequestParam Integer userId) {
-
-        if (userId <= 0 ) {
-            return ResponseBuilder.badRequest("id must be greater than 0");
-        }
-
-        List<Order> searchResults = orderService.searchOrder(userId);
-        if (searchResults.isEmpty()) {
-            return ResponseBuilder.notFound("Search has no results");
-        }
-
-        return ResponseBuilder.searchResults(searchResults, searchResults.size());
-    }
+//    @GetMapping("/search")
+//    public ResponseEntity<?> searchOrder(@RequestParam Integer userId) {
+//
+//        if (userId <= 0 ) {
+//            return ResponseBuilder.badRequest("id must be greater than 0");
+//        }
+//
+//        List<Order> searchResults = orderService.searchOrder(userId);
+//        if (searchResults.isEmpty()) {
+//            return ResponseBuilder.notFound("Search has no results");
+//        }
+//
+//        return ResponseBuilder.searchResults(searchResults, searchResults.size());
+//    }
 
 }

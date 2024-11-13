@@ -27,7 +27,7 @@ public class OrderService {
     private OrderProductService orderProductService;
 
     public List<Order> getAllOrders() {
-        return orderRepository.findNotDeleted();
+        return orderRepository.findAllNotDeleted();
     }
 
     public Optional<Order> getOrderById(int id) {
@@ -38,6 +38,7 @@ public class OrderService {
 
         List<OrderProduct> orderProducts = orderProductRepository.findOrderProductByOrderId(order.getId());
 
+        // Aggiungi alla funzione Add Product
         BigDecimal totalPrice = BigDecimal.ZERO;
 
         for(var temp : orderProducts){
@@ -46,6 +47,7 @@ public class OrderService {
 
         totalPrice =  totalPrice.add(order.getShippingPrice()).add(order.getCommission());
         order.setTotalPrice(totalPrice);
+        //
 
         return orderRepository.save(order);
     }
@@ -60,9 +62,9 @@ public class OrderService {
         orderRepository.save(order);
     }
 
-    public List<Order> searchOrder(int id) {
-        return orderRepository.findAllWhereUserIdIsEqual(id);
-    }
+//    public List<Order> searchOrder(int id) {
+//        return (id);
+//    }
 
     @Transactional
     public Order updateOrder(int id, Map<String, Object> update) {

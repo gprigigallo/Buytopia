@@ -1,5 +1,9 @@
 package com.apuliadigitalmaker.buytopia.user;
 
+import com.apuliadigitalmaker.buytopia.dto.MapperRepository;
+import com.apuliadigitalmaker.buytopia.dto.UserDto;
+import com.apuliadigitalmaker.buytopia.order.Order;
+import com.apuliadigitalmaker.buytopia.order.OrderRepository;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.Id;
@@ -19,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private OrderRepository orderRepository;
+
 
     // Ottieni tutti
     public List<User> getAllUsers() {
@@ -83,7 +90,7 @@ public class UserService {
                 case "phone_number":
                     user.setPhone((String) value);
                     break;
-                case "address":
+                case "billing_address":
                     user.setBillingAddress((String) value);
                     break;
             }
@@ -123,6 +130,16 @@ public class UserService {
     // Cerco l'utente da query
     public List<User> searchUser(String search) {
         return userRepository.findByUsernameStartsWithIgnoreCaseAndDeletedAtIsNull(search);
+    }
+
+
+    private final MapperRepository mapperRepository = new MapperRepository();
+
+    public UserDto getOrderByUserEmail (String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new EntityNotFoundException(notFoundMessage));
+        return mapperRepository.toDTO(user);
+
     }
         
         

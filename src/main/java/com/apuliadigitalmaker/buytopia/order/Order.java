@@ -2,6 +2,8 @@ package com.apuliadigitalmaker.buytopia.order;
 
 import com.apuliadigitalmaker.buytopia.orderproduct.OrderProduct;
 import com.apuliadigitalmaker.buytopia.user.User;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -22,6 +24,7 @@ public class Order {
     @Column(name = "order_id", nullable = false)
     private Integer id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JoinColumn(name = "user_id")
@@ -58,6 +61,9 @@ public class Order {
     @PrePersist
     protected void onCreate() {
         createdAt = Instant.now();
+
+        // Total Price
+
     }
 
     @Column(name = "updated_at")
@@ -66,10 +72,15 @@ public class Order {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = Instant.now();
+
+        // Total Price
     }
 
     @Column(name = "deleted_at")
     private Instant deletedAt;
+
+    @JsonIgnore
+    private transient Object hibernateLazyInitializer;
 
     public void softDelete() {this.deletedAt= Instant.now();}
 
