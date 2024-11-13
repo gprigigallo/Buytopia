@@ -1,7 +1,11 @@
 package com.apuliadigitalmaker.buytopia.product;
 
 
+import com.apuliadigitalmaker.buytopia.common.JwtUtil;
 import com.apuliadigitalmaker.buytopia.common.ResponseBuilder;
+import com.apuliadigitalmaker.buytopia.user.User;
+import com.apuliadigitalmaker.buytopia.user.UserRepository;
+import com.apuliadigitalmaker.buytopia.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
@@ -24,6 +29,12 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private JwtUtil jwtUtil;
+    @Autowired
+    private UserRepository userRepository;
 
     @Operation(summary = "Get the list of all products")
     @ApiResponses(value = {
@@ -64,14 +75,17 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addProduct(@RequestBody Product product) {
+    public ResponseEntity<?> addProduct(@RequestHeader("Authorization") String Jwt,@RequestBody Product product) {
+        System.out.println(Jwt);
         try {
+      User tuser = userRepository.findByUsername(jwtUtil.extractUsername(Jwt.substring("bearer ".length()))).orElseThrow(EntityNotFoundException::new);
 
-            if(product.getName().length() < 3)return ResponseBuilder.badRequest("Name too short, the name must be at least 3 characters");
+
+           /* if(product.getName().length() < 3)return ResponseBuilder.badRequest("Name too short, the name must be at least 3 characters");
             if(product.getPrice().doubleValue() <= 0)return ResponseBuilder.badRequest("price must be more than zero");
-            if(product.getDescription().isEmpty() && product.getDescription() != null) return ResponseBuilder.badRequest("if u put a description don't leave it empty!!");
-            if(product.getAvailableQuantity() <= 0 || !product.getAvailable())return ResponseBuilder.badRequest("u can't add something you don't have!");
-            return ResponseBuilder.success(productService.addProduct(product));
+            if( product.getDescription() != null && product.getDescription().isEmpty()) return ResponseBuilder.badRequest("if u put a description don't leave it empty!!");
+            if(product.getAvailableQuantity() <= 0 )return ResponseBuilder.badRequest("u can't add something you don't have!");*/
+            return ResponseBuilder.success(productService.addProduct(tuser, product));
         }
         catch (Exception e) {
             e.printStackTrace();

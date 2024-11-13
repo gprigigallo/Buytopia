@@ -18,7 +18,7 @@ public class MapperRepository {
 
     public ProductDto toDTO(Product product){
         ProductDto dto = new ProductDto();
-        dto.setId(product.getId());
+
         dto.setName(product.getName());
         dto.setDescription(product.getDescription());
         dto.setPrice(product.getPrice());
@@ -33,7 +33,7 @@ public class MapperRepository {
 
     public Product toEntity(ProductDto dto) {
         Product product = new Product();
-        product.setId(dto.getId());
+      
         product.setName(dto.getName());
         product.setDescription(dto.getDescription());
         product.setPrice(dto.getPrice());

@@ -33,12 +33,15 @@ public class ProductService {
         return productRepository.findByIdNotDeleted(id);
     }
 
-    public Product addProduct(Product product) {
+    public Product addProduct(User tuser, Product product) {
 
         // Setto vendor = 1
-        User user = userRepository.findById(product.getUser().getId()).orElseThrow(EntityNotFoundException::new);
-        user.setVendor(true);
-        userRepository.save(user);
+        if(tuser != null){
+        tuser.setVendor(true);
+        userRepository.save(tuser);
+        product.setUser(tuser);
+        }
+
         return productRepository.save(product);
     }
 

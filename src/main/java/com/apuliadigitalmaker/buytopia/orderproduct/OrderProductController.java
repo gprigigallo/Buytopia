@@ -1,6 +1,7 @@
 package com.apuliadigitalmaker.buytopia.orderproduct;
 
 import com.apuliadigitalmaker.buytopia.common.ResponseBuilder;
+import com.apuliadigitalmaker.buytopia.dto.OrderProductRequestDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -53,7 +54,7 @@ public class OrderProductController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> addOrderProduct(@RequestBody OrderProduct orderProduct) {
+    public ResponseEntity<?> addOrderProduct(@RequestBody OrderProductRequestDTO orderProduct) {
         try {
             return ResponseBuilder.success(orderProductService.addOrderProduct(orderProduct));
         } catch (Exception e) {

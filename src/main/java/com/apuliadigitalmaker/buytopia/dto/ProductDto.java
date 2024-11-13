@@ -3,7 +3,7 @@ package com.apuliadigitalmaker.buytopia.dto;
 import java.math.BigDecimal;
 
 public class ProductDto {
-    private Integer id;
+
     private String name;
     private String description;
     private BigDecimal price;
@@ -17,13 +17,6 @@ public class ProductDto {
     public ProductDto() {
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

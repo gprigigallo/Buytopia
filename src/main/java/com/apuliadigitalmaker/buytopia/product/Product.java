@@ -4,6 +4,7 @@ import com.apuliadigitalmaker.buytopia.categories.Category;
 import com.apuliadigitalmaker.buytopia.categories.Category;
 import com.apuliadigitalmaker.buytopia.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -15,6 +16,7 @@ import java.math.BigDecimal;
 import java.time.Instant;
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "products", schema = "buytopia")
 public class Product {
 
