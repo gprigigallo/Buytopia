@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.awt.print.Pageable;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -51,6 +52,20 @@ public class OrderProductService {
         orderProduct.setOrder(order);
         orderProduct.setProduct(product);
         //orderProduct.setPrice(price);
+
+
+        List<OrderProduct> orderProducts = orderProductRepository.findOrderProductByOrderId(order.getId());
+
+        // Aggiungi alla funzione Add Product
+        BigDecimal totalPrice = BigDecimal.ZERO;
+
+        for(var temp : orderProducts){
+            totalPrice = totalPrice.add(temp.getPrice());
+        }
+
+        totalPrice =  totalPrice.add(order.getShippingPrice()).add(order.getCommission());
+        order.setTotalPrice(totalPrice);
+ orderRepository.save(order);
 
         // Salva il nuovo OrderProduct nel database
         return orderProductRepository.save(orderProduct);

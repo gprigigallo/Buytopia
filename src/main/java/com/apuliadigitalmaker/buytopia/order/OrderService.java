@@ -36,17 +36,6 @@ public class OrderService {
 
     public Order addOrder(Order order) {
 
-        List<OrderProduct> orderProducts = orderProductRepository.findOrderProductByOrderId(order.getId());
-
-        // Aggiungi alla funzione Add Product
-        BigDecimal totalPrice = BigDecimal.ZERO;
-
-        for(var temp : orderProducts){
-             totalPrice = totalPrice.add(temp.getPrice());
-        }
-
-        totalPrice =  totalPrice.add(order.getShippingPrice()).add(order.getCommission());
-        order.setTotalPrice(totalPrice);
         //
 
         return orderRepository.save(order);
@@ -69,19 +58,20 @@ public class OrderService {
     @Transactional
     public Order updateOrder(int id, Map<String, Object> update) {
         Optional<Order> optionalOrder = orderRepository.findByIdNotDeleted(id);
-        Order Order = optionalOrder.get(); ;
+        Order order = optionalOrder.get(); ;
         update.forEach((key, value) -> {
             switch (key) {
                 case "quantity":
 
                     break;
 
+
             }
         });
 
 
 
-        return orderRepository.save(Order);
+        return orderRepository.save(order);
     }
 
     public List<Order> getOrderByUserId(int id) {
